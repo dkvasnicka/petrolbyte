@@ -9,7 +9,7 @@
 
 (define app-routes
     (dispatch-case
-        [("data") (jsonize ($ 'x ($ 'y '(4 5 6))))]))
+        [("connect") (jsonize ($ 'ifaceId "ELM327 v1.4b"))]))
 
 (define-runtime-path static-files "../client")
 
