@@ -12,7 +12,7 @@
      (response/full
         200 #"OK"
         (current-seconds) 
-        #"text/json"
+        #"application/json"
         null
         (list (jsexpr->bytes jsondata)))))
 
