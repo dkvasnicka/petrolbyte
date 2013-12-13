@@ -11,8 +11,10 @@
     (dispatch-case
         [("connect") (jsonize ($ 'ifaceId "ELM327 v1.4b"))]
         [("error-codes") (jsonize ($ 'dtcs (list 
-                                    ($ 'code "P0016" 'description "Crankshaft Position - Camshaft Position Correlation (Bank 1 Sensor A)")
-                                    ($ 'code "P0029" 'description "Exhaust Valve Control Solenoid Circuit Range/Performance Bank 2"))))]
+                                    ($ 'code "P0016" 'description 
+                                       "Crankshaft Position - Camshaft Position Correlation (Bank 1 Sensor A)")
+                                    ($ 'code "P0029" 'description 
+                                       "Exhaust Valve Control Solenoid Circuit Range/Performance Bank 2"))))]
         ))
 
 (define-runtime-path static-files "../client")
