@@ -5,7 +5,8 @@
          json)
 
 (provide jsonize
-         $)
+         $
+         partition-at)
 
 (define [jsonize jsondata]
   (λ [req] 
@@ -17,3 +18,17 @@
         (list (jsexpr->bytes jsondata)))))
 
 (define $ hash)
+
+(define [partition-at lst size]
+  (if (empty? lst)
+      null
+      (((λ [f] (f f))
+        (λ [part-at]
+          (λ [lst out]
+             (if (<= (length lst) size)
+                 (append out (list lst))
+                 (let-values [[[x xs] (split-at lst size)]]
+                   ((part-at part-at)
+                        xs (append out (list x))))))))
+       
+       lst null)))
