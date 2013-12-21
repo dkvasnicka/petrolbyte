@@ -1,8 +1,9 @@
 #lang racket
 
-(provide send-and-receive)
+(provide send-and-receive
+         reset-device)
 
-(define host "192.168.0.10")
+(define host "localhost")
 (define port 35000)
 
 (define [send-and-receive cmd [h host] [p port]]
@@ -12,3 +13,5 @@
                        (close-output-port o)
                        (port->string i))))
 
+(define [reset-device]
+  (send-and-receive "AT Z"))

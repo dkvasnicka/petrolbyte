@@ -5,11 +5,12 @@
          web-server/templates
          racket/runtime-path
          json
-         "utils.rkt")
+         "utils.rkt"
+         "obd2.rkt")
 
 (define app-routes
     (dispatch-case
-        [("connect") (jsonize ($ 'ifaceId "ELM327 v1.4b"))]
+        [("connect") (jsonize ($ 'ifaceId (reset-device)))]
         [("error-codes") (jsonize ($ 'dtcs (list 
                                     ($ 'code "P0016" 'description 
                                        "Crankshaft Position - Camshaft Position Correlation (Bank 1 Sensor A)")
