@@ -6,16 +6,16 @@
          racket/runtime-path
          json
          "utils.rkt"
-         "obd2.rkt")
+         "obd2.rkt"
+         "codes.rkt")
 
 (define app-routes
     (dispatch-case
         [("connect") (jsonize ($ 'ifaceId (reset-device)))]
-        [("error-codes") (jsonize ($ 'dtcs (list 
-                                    ($ 'code "P0016" 'description 
-                                       "Crankshaft Position - Camshaft Position Correlation (Bank 1 Sensor A)")
-                                    ($ 'code "P0029" 'description 
-                                       "Exhaust Valve Control Solenoid Circuit Range/Performance Bank 2"))))]
+        [("error-codes") (jsonize ($ 'dtcs 
+                                     (map (λ [c] ($ 'code c 'description
+                                                     (hash-ref trouble-codes c))) 
+                                          (retrieve-dtcs))))]
         ))
 
 (define-runtime-path static-files "../client")
