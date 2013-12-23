@@ -27,6 +27,7 @@
      (raise "Did not receive a proper DTC reply from the device!"))))
 
 (define [parse-dtcs dtcstring]
-  (let [[codebytes (partition-at (string->list dtcstring) 4)]]
+  (let [[codebytes (partition-at 
+                      (remove* '(#\space) (string->list dtcstring)) 4)]]
     (map (λ [c] (string-append "P" (list->string c))) 
          (filter-not (compose null? (curry remove* '(#\0))) codebytes))))

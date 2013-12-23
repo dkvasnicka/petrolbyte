@@ -7,7 +7,7 @@
   (display
     (match (port->string in)
         ["AT Z" "ELM327 v1.4b"]
-        ["03"   "43018221970000"]
+        ["03"   "43 01 82 21 97 00 00"]
         [_      "NO DATA"]) 
     out)
   
