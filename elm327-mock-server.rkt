@@ -4,12 +4,14 @@
 
 (define [loop]
   (define-values (in out) (tcp-accept listener))  
-  (display
-    (match (port->string in)
-        ["AT Z" "ELM327 v1.4b"]
-        ["03"   "43 01 82 21 97 00 00"]
-        [_      "NO DATA"]) 
-    out)
+  (let [[cmd (port->string in)]]
+    (displayln cmd)
+    (display
+        (match cmd
+            ["AT Z\r"   "ELM327 v1.4b"]
+            ["03\r"     "43 01 82 21 97 00 00"]
+            [_          "NO DATA"]) 
+        out))
   
   (close-input-port in)
   (close-output-port out)

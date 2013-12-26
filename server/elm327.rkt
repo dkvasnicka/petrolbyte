@@ -13,7 +13,7 @@
 (define [send-and-receive cmd [h host] [p port]]
   (call-with-values (λ [] (tcp-connect h p))
                     (λ [i o]
-                       (display cmd o)
+                       (display (string-append cmd "\r") o)
                        (close-output-port o)
                        (port->string i))))
 
