@@ -14,7 +14,7 @@
         [("connect") (jsonize ($ 'ifaceId (reset-device)))]
         [("error-codes") (jsonize ($ 'dtcs 
                                      (map (λ [c] ($ 'code c 'description
-                                                     (hash-ref trouble-codes c))) 
+                                                     (car (hash-ref trouble-codes c)))) 
                                           (retrieve-dtcs))))]
         ))
 
