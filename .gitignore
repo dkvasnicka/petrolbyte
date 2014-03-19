@@ -1,3 +1,4 @@
 *.swp
 *.swo
-client/coffee/*.js
+client/js/app.js
+client/js/react.js
