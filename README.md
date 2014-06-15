@@ -10,7 +10,7 @@ I love cars and I love to fix/do as much as I can myself. Most of the reasonably
 
 #### Current status
 
-**Pre-alpha work-in-progress thing!** The app can connect to your ELM module, and reset it. Unfortunately, ELM327 does not work on a plain send/receive stateless TCP/IP basis, so the mock server that is included in this project actually works differently than the actual device. I'm studying the specs and working to fix this.
+**Pre-alpha work-in-progress thing!** The app can connect to your ELM module, and reset it. It should also fetch your DTCs but I haven't tested that yet as I don't have a faulty car at home ...fortunately ;)
 
 #### Howto
 
@@ -19,14 +19,12 @@ I love cars and I love to fix/do as much as I can myself. Most of the reasonably
 1. Install [Racket >= 6.0](http://http://download.racket-lang.org)
 2. Clone this repo
 3. Compile ClojureScript sources `lein do clean, cljsbuild clean, cljsbuild once`
-3. Run the ELM327 mock server that is needed for some of the tests to run properly:  
-	 - `racket elm327-mock-server.rkt`
 3. `cd server`
-4. Run the tests: `raco test tests`
+4. Run the tests (yes, I should write more of them): `raco test tests`
 
 ##### Running the app
 
-5. If you want to run against a real device instead of the mock server - which does not make much of a sense now - change the config in `elm327.rkt` (you will probably only need to change the host - my device creates an ad-hoc WIFI network and sits on `192.168.0.10`)
+5. Change the config in `elm327.rkt` (you will probably only need to change the host - my device creates an ad-hoc WIFI network and sits on `192.168.0.10`)
 6. Run the app: `racket app.rkt`
 
 #### License

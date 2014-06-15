@@ -1,7 +1,6 @@
 #lang racket
 
 (require "utils.rkt"
-         racket/generator
          srfi/41)
 
 (provide send-and-receive
@@ -37,7 +36,7 @@
   (let [[response (send-and-receive "03")]]
    (if (equal? (substring response 0 2) "43")
      (parse-dtcs (substring response 2))
-     (raise "Did not receive a proper DTC reply from the device!"))))
+     (error "Did not receive a proper DTC reply from the device!"))))
 
 (define [parse-dtcs dtcstring]
   (let [[codebytes (partition-at 

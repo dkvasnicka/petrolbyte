@@ -2,3 +2,4 @@
 *.swo
 client/js/app.js
 client/js/react.js
+server/compiled/**
