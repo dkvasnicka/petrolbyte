@@ -6,7 +6,7 @@ Written using [Racket](http://racket-lang.org), ClojureScript and Reagent / Face
 
 #### Why?
 
-I love cars and I love to fix/do as much as I can myself. Most of the reasonably good car diagnostics software is expensive and (AFAIK) none of it is web/server-based. And most importantly: I wanted something that could run (not only) on my Raspberry Pi and could serve as a smart carputer and a diagnostic device at the same time - all accessible using just a web browser.
+I love cars and I love to fix/do as much as I can myself. Most of the reasonably good car diagnostics software is expensive and (AFAIK) none of it is web/server-based. And most importantly: I wanted something that could run (not only) on my Raspberry Pi (that's why the server doesn't run on JVM) and could serve as a smart carputer and a diagnostic device at the same time - all accessible using just a web browser.
 
 #### Current status
 
