@@ -5,6 +5,6 @@
 (provide trouble-codes)
 
 (define trouble-codes
-  (make-hash
-    (map (curryr string-split ",") 
-         (port->lines (open-file-input-port "codes.csv")))))
+  (for/hash [[l (in-lines (open-file-input-port "codes.csv"))]]
+            (let [[data (string-split l "," #:trim? #f)]]
+              (values (car data) (string-join (cdr data) ",")))))
