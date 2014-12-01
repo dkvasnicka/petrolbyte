@@ -4,6 +4,7 @@
          web-server/servlet-env
          web-server/templates
          racket/runtime-path
+         net/rfc6455
          json
          "utils.rkt"
          "elm327.rkt"
@@ -19,6 +20,16 @@
         ))
 
 (define-runtime-path static-files "../client")
+
+(ws-serve
+  #:port 8080
+  (λ [wsc _]
+     (let loop []
+       (define m (ws-recv wsc))
+       (printf "~a\n" m)
+       (unless (eof-object? m)
+         (ws-send! wsc m)
+         (loop)))))
 
 (serve/servlet app-routes 
                #:command-line? #t
