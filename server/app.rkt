@@ -7,17 +7,11 @@
          net/rfc6455
          json
          "utils.rkt"
-         "elm327.rkt"
-         "codes.rkt")
+         "elm327.rkt")
 
 (define app-routes
     (dispatch-case
-        [("connect") (jsonize ($ 'ifaceId (reset-device)))]
-        [("error-codes") (jsonize ($ 'dtcs 
-                                     (map (λ [c] ($ 'code c 'description
-                                                     (car (hash-ref trouble-codes c)))) 
-                                          (retrieve-dtcs))))]
-        ))
+        [("connect") (jsonize ($ 'ifaceId (reset-device)))]))
 
 (define-runtime-path static-files "../client")
 

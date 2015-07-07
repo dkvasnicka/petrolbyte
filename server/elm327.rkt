@@ -1,13 +1,10 @@
 #lang racket
 
-(require "utils.rkt"
-         srfi/41)
+(require srfi/41)
 
 (provide send-and-receive
-         reset-device
-         retrieve-dtcs
-         parse-dtcs
-         response-stream)
+         response-stream
+         reset-device)
 
 (define host "localhost")
 (define port 35000)
@@ -31,15 +28,3 @@
 
 (define (reset-device)
   (send-and-receive "AT Z"))
-
-(define (retrieve-dtcs)
-  (let ([response (send-and-receive "03")])
-   (if (equal? (substring response 0 2) "43")
-     (parse-dtcs (substring response 2))
-     (error "Did not receive a proper DTC reply from the device!"))))
-
-(define (parse-dtcs dtcstring)
-  (let ([codebytes (partition-at 
-                      (remove* '(#\space) (string->list dtcstring)) 4)])
-    (map (λ [c] (string-append "P" (list->string c))) 
-         (filter-not (compose null? (curry remove* '(#\0))) codebytes))))
