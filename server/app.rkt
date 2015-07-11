@@ -1,17 +1,17 @@
-#lang racket
+#lang rackjure
 
 (require web-server/servlet
          web-server/servlet-env
          web-server/templates
          racket/runtime-path
-         net/rfc6455
-         json
          "utils.rkt"
-         "elm327.rkt")
+         "obd2.rkt")
+
+(current-curly-dict hasheq)
 
 (define app-routes
     (dispatch-case
-        [("connect") (jsonize (hash 'ifaceId 0))]))
+        [("engine-rpm") (jsonize {'engine-rpm (engine-rpm)})]))
 
 (define-runtime-path static-files "../client")
 
