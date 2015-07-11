@@ -3,11 +3,12 @@
 (require rackunit
          "../elm327.rkt"
          srfi/41
+         (only-in alexis/collection sequence->string)
          rnrs/io/ports-6)
 
 (test-equal? "test that port is correctly consumed and parsed"
-             (list->string
-               (stream->list
-                 (response-stream 
-                   (open-string-input-port "AT Z\r\rELM327 v1.4b\r>") "AT Z")))
-             "ELM327 v1.4b")
+             (sequence->string
+               (response-seq 
+                 (open-string-input-port "010C\r\r41 0C 18 FA\r>blablabla")
+                 "010C"))
+             "18FA")
