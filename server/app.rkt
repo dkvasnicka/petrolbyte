@@ -11,7 +11,7 @@
 
 (define app-routes
     (dispatch-case
-        [("engine-rpm") (jsonize {'engine-rpm (engine-rpm)})]))
+        [("engine-rpm") (jsonize {'engineRpm (engine-rpm)})]))
 
 (define-runtime-path static-files "../client")
 

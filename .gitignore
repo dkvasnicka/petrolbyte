@@ -1,5 +1,4 @@
 *.swp
 *.swo
-client/js/app.js
-client/js/react.js
+client/js/*.js
 server/compiled/**
