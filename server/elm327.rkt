@@ -7,10 +7,16 @@
                   drop))
 
 (provide send-and-receive
-         response-seq)
+         response-seq
+         connect!)
 
 (define host "192.168.0.10")
 (define port 35000)
+(define-values (I O) (values (current-input-port) 
+                             (current-output-port)))
+
+(define (connect! [h host] [p port])
+  (set!-values (I O) (tcp-connect h p)))
 
 (define (response-seq iport cmd)
   (drop (* 2 (string-length cmd))
@@ -19,10 +25,9 @@
                        #:break (char=? ch #\>))
                       ch)))
 
-(define (send-and-receive cmd [h host] [p port])
-  (let-values ([(i o) (tcp-connect h p)])
-    (display (string-append cmd "\r") o)
-    (flush-output o)
-    (hex-string->bytes
-      (sequence->string
-        (response-seq i cmd)))))
+(define (send-and-receive cmd)
+  (display (string-append cmd "\r") O)
+  (flush-output O)
+  (hex-string->bytes
+    (sequence->string
+      (response-seq I cmd))))

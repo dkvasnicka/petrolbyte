@@ -8,6 +8,7 @@
          "obd2.rkt")
 
 (current-curly-dict hasheq)
+(connect!)
 
 (define app-routes
     (dispatch-case
