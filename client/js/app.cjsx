@@ -1,14 +1,18 @@
-revStream = Kefir.withInterval 1000,
+dataStream = Kefir.withInterval 1000,
     (emitter) ->
-        $.getJSON "/engine-rpm", (data) -> emitter.emit data
+        $.getJSON "/data", (data) -> emitter.emit data
 
-revProperty = revStream.toProperty -> { engineRpm : 0 }
+dataProp = dataStream.toProperty -> { engineRpm : 0, speed: 0, fuelCons: "∞" }
 
-RevDisplay = React.createClass {
-    mixins: [ KefirConnect(revProperty, "revdata") ],
+DataDisplay = React.createClass {
+    mixins: [ KefirConnect(dataProp, "data") ],
     render: ->
-        <span>{ @state.revdata.engineRpm }</span>
+        <ul>
+            <li>{ @state.data.engineRpm } RPM</li>
+            <li>{ @state.data.speed } km / h</li>
+            <li>{ @state.data.fuelCons } l / 100 km</li>
+        </ul>
 }
 
 $(document).ready ->
-    React.render <RevDisplay />, document.getElementById("revs")
+    React.render <DataDisplay />, document.getElementById("data")

@@ -12,8 +12,7 @@
 
 (define host "192.168.0.10")
 (define port 35000)
-(define-values (I O) (values (current-input-port) 
-                             (current-output-port)))
+(define-values (I O) (values #f #f))
 
 (define (connect! [h host] [p port])
   (set!-values (I O) (tcp-connect h p)))

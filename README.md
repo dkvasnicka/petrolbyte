@@ -8,7 +8,7 @@ I love cars and I love to fix/do as much as I can myself. Most of the reasonably
 
 #### Current status
 
-**Pre-alpha work-in-progress thing!** Right now, the app can connect to your ELM module and show you just one thing: [your RPM, in real time](https://youtu.be/gvfwIWWEYTk).
+Right now, the app can connect to your ELM module and show you realtime [RPM](https://youtu.be/gvfwIWWEYTk), speed and fuel consumption (based on MAF sensor; if you don't have it there is an implementation that uses MAP and IAT).
 
 #### Howto
 

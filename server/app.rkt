@@ -10,9 +10,17 @@
 (current-curly-dict hasheq)
 (connect!)
 
+(define (read-data)
+  (let ([spd (speed)]
+        [rpm (engine-rpm)]) 
+    (jsonize 
+      {'engineRpm (exact->inexact rpm)
+       'speed     spd
+       'fuelCons  (number->string (fuel-cons spd rpm))})))
+
 (define app-routes
     (dispatch-case
-        [("engine-rpm") (jsonize {'engineRpm (engine-rpm)})]))
+         [("data") (read-data)]))
 
 (define-runtime-path static-files "../client")
 
