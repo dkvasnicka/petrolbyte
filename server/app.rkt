@@ -14,9 +14,9 @@
   (let ([spd (speed)]
         [rpm (engine-rpm)]) 
     (jsonize 
-      {'engineRpm (exact->inexact rpm)
-       'speed     spd
-       'fuelCons  (number->string (fuel-cons spd rpm))})))
+      {'engineRpm (~r rpm #:precision 0 #:min-width 10 #:pad-string "&nbsp;")
+       'speed     (~r spd #:min-width 10 #:pad-string "&nbsp;")
+       'fuelCons  (~r (fuel-cons spd rpm) #:precision 1 #:min-width 10 #:pad-string "&nbsp;")})))
 
 (define app-routes
     (dispatch-case

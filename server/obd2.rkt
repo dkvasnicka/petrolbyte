@@ -13,7 +13,7 @@
   (let ([bs (send-and-receive "010C")])
     (/ (+ (* 256 (bytes-ref bs 0)) 
           (bytes-ref bs 1)) 
-       4)))
+       4.0)))
 
 (define (speed)
   (bytes-ref (send-and-receive "010D") 0))
