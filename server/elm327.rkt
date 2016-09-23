@@ -1,7 +1,7 @@
 #lang racket
 
 (require file/sha1
-         (only-in alexis/collection 
+         (only-in data/collection 
                   for/sequence 
                   sequence->string
                   drop))
