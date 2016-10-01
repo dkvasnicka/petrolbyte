@@ -24,9 +24,13 @@
                        #:break (char=? ch #\>))
                       ch)))
 
+(define/match (hex->bytes hxstring)
+  [("TA") (error "PID not supported")]
+  [(hxstring) (hex-string->bytes hxstring)])
+
 (define (send-and-receive cmd)
   (display (string-append cmd "\r") O)
   (flush-output O)
-  (hex-string->bytes
+  (hex->bytes
     (sequence->string
       (response-seq I cmd))))

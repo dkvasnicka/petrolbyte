@@ -5,9 +5,14 @@
 (provide engine-rpm
          speed
          fuel-cons
+         coolant-temp
+         engine-load
          connect!)
 
 (define displacement 4.16)
+
+(define (single-byte pid)
+  (bytes-ref (send-and-receive pid) 0))
 
 (define (engine-rpm)
   (let ([bs (send-and-receive "010C")])
@@ -16,7 +21,7 @@
        4.0)))
 
 (define (speed)
-  (bytes-ref (send-and-receive "010D") 0))
+  (single-byte "010D"))
 
 (define (maf-rate)
   (let ([bs (send-and-receive "0110")])
@@ -25,10 +30,10 @@
        100)))
 
 (define (manifold-abs-press)
-  (bytes-ref (send-and-receive "010B") 0))
+  (single-byte "010B"))
 
 (define (iat)
-  (- (bytes-ref (send-and-receive "010F") 0) 40))
+  (- (single-byte "010F") 40))
 
 (define (estimated-maf rpm)
   (* (/ (manifold-abs-press) (iat))
@@ -37,9 +42,30 @@
      (/ displacement 2)
      0.8))
 
-(define (fuel-rate maf)
-  (* 3600 (/ (/ maf 14.7) 750)))
+(define (fuel-trim)
+  (* (- (single-byte "0106") 128)
+     (/ 100 128)))
 
-(define (fuel-cons spd rpm)
-  (* (fuel-rate (maf-rate)) 
-     (/ 100 (exact->inexact spd))))
+(define fuel-rate
+  (case-lambda
+    [()    
+     (let ([bs (send-and-receive "015E")])
+       (* (+ (* 256 (bytes-ref bs 0)) (bytes-ref bs 1)) 
+          0.05))]
+    
+    [(maf ftrim)  
+     (* 3600 
+        (/ (* (/ maf 14.7) (+ 1 (/ ftrim 100))) 
+           726))]))
+
+(define (fuel-cons spd)
+  (* (fuel-rate (maf-rate) (fuel-trim)) 
+     (/ 100 spd)))
+
+(define (coolant-temp)
+  (- (single-byte "0105") 40))
+
+(define (engine-load)
+  (/ (* (single-byte "0104") 100)
+     255))
+
