@@ -2,8 +2,7 @@
 
 (require rackunit
          "../elm327.rkt"
-         srfi/41
-         (only-in alexis/collection sequence->string)
+         (only-in data/collection sequence->string)
          rnrs/io/ports-6)
 
 (test-equal? "test that port is correctly consumed and parsed"

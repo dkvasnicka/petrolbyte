@@ -1,4 +1,4 @@
 *.swp
 *.swo
 client/js/*.js
-server/compiled/**
+**/compiled

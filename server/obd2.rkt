@@ -35,13 +35,6 @@
 (define (iat)
   (- (single-byte "010F") 40))
 
-(define (estimated-maf rpm)
-  (* (/ (manifold-abs-press) (iat))
-     (/ 28.97 8.314)
-     (/ rpm 60)
-     (/ displacement 2)
-     0.8))
-
 (define (fuel-trim)
   (* (- (single-byte "0106") 128)
      (/ 100 128)))
