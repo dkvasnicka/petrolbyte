@@ -9,6 +9,7 @@ I love cars and I love to fix/do as much as I can myself. Most of the reasonably
 #### Current status
 
 Right now, the app can connect to your ELM module and show you realtime [RPM](https://youtu.be/gvfwIWWEYTk), speed and fuel consumption (based on MAF sensor). There is also a recorder script that will record various stats and write them to STDOUT as JSON oneliners.
+The fuel consumption calculation development is still in progress. No all the data provided by OBD that can be used to precisely compute fuel economy are currently being used.
 
 #### Howto
 

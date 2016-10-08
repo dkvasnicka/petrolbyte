@@ -9,8 +9,6 @@
          engine-load
          connect!)
 
-(define displacement 4.16)
-
 (define (single-byte pid)
   (bytes-ref (send-and-receive pid) 0))
 
