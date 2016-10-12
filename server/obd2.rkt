@@ -33,9 +33,13 @@
 (define (iat)
   (- (single-byte "010F") 40))
 
-(define (fuel-trim)
-  (* (- (single-byte "0106") 128)
+(define (compute-ft b)
+  (* (- b 128)
      (/ 100 128)))
+
+(define (short-long-fuel-trim)
+  (for/product ([pid '("0106" "0107")])
+               (compute-ft (single-byte pid))))
 
 (define fuel-rate
   (case-lambda
@@ -50,7 +54,7 @@
            726))]))
 
 (define (fuel-cons spd)
-  (* (fuel-rate (maf-rate) (fuel-trim)) 
+  (* (fuel-rate (maf-rate) (short-long-fuel-trim)) 
      (/ 100 spd)))
 
 (define (coolant-temp)
